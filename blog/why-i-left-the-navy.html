@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Why I Left the Navy to Build KWIK — Parth Gohil</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --cream: #faf6ef;
+    --warm-white: #fff9f2;
+    --navy: #0f1f3d;
+    --rust: #c94f2a;
+    --amber: #e8a030;
+    --text: #2a2018;
+    --muted: #7a6e60;
+    --sand: #e8dcc8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    background: rgba(250,246,239,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(232,220,200,0.5);
+  }
+
+  .nav-back {
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+  }
+
+  .nav-back:hover { color: var(--rust); }
+  .nav-back::before { content: '←'; }
+
+  .article-header {
+    max-width: 740px;
+    margin: 120px auto 60px;
+    padding: 0 32px;
+  }
+
+  .article-date {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 16px;
+  }
+
+  .article-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+
+  .article-subtitle {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  .article-body {
+    max-width: 680px;
+    margin: 0 auto 80px;
+    padding: 0 32px;
+  }
+
+  .article-body p {
+    margin-bottom: 24px;
+    font-size: 17px;
+    line-height: 1.8;
+  }
+
+  .article-body h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text);
+    margin-top: 48px;
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
+  .article-body h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    margin-top: 36px;
+    margin-bottom: 16px;
+  }
+
+  .article-body strong {
+    font-weight: 500;
+    color: var(--rust);
+  }
+
+  .article-body em {
+    font-style: italic;
+    color: var(--text);
+  }
+
+  .article-body a {
+    color: var(--rust);
+    text-decoration: underline;
+    text-decoration-color: rgba(201,79,42,0.3);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.2s;
+  }
+
+  .article-body a:hover {
+    text-decoration-color: var(--rust);
+  }
+
+  .article-body blockquote {
+    border-left: 3px solid var(--amber);
+    padding-left: 24px;
+    margin: 32px 0;
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .article-body ul,
+  .article-body ol {
+    margin-left: 24px;
+    margin-bottom: 24px;
+  }
+
+  .article-body li {
+    margin-bottom: 12px;
+    font-size: 17px;
+  }
+
+  .article-body hr {
+    border: none;
+    border-top: 1px solid var(--sand);
+    margin: 48px 0;
+  }
+
+  .callout {
+    background: var(--warm-white);
+    border-left: 4px solid var(--rust);
+    padding: 24px 28px;
+    margin: 32px 0;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .callout p {
+    margin-bottom: 0;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  footer {
+    background: var(--navy);
+    padding: 32px 48px;
+    text-align: center;
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  footer strong {
+    color: rgba(255,255,255,0.9);
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .article-header { margin-top: 100px; padding: 0 24px; }
+    .article-body { padding: 0 24px; }
+    .article-body p, .article-body li { font-size: 16px; }
+    .article-body h2 { font-size: 24px; margin-top: 36px; }
+    .article-body h3 { font-size: 20px; margin-top: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-back">Back to Home</a>
+</nav>
+
+<header class="article-header">
+  <div class="article-date">April 2026</div>
+  <h1 class="article-title">Why I Left the Navy to Build KWIK</h1>
+  <p class="article-subtitle">After ten years in uniform, I had to make a choice: take the safe path or build something with my name on it. Here's why I chose the second.</p>
+</header>
+
+<article class="article-body">
+
+  <p>
+    I spent a decade in the Indian Navy. Ten years of warships, technical operations, contracting, and the kind of structured life that gives you a paycheck, a house, a car, and the quiet comfort of knowing exactly what the next twenty years look like.
+  </p>
+
+  <p>
+    It was a good life. More than good — it was enriching. The Navy gave me comrades I'll have for life, memories I'll carry forever, and a lens on leadership and problem-solving that you can't learn in a classroom. I don't regret a single day of it.
+  </p>
+
+  <p>
+    But somewhere along the way, a question started forming: <strong>is this the life I want to live until I'm 60?</strong>
+  </p>
+
+  <h2>The Realisation</h2>
+
+  <p>
+    Money alone doesn't make you happy. I know that sounds like something people say when they already have money, but I mean it literally. The Navy paid well enough — a good house, holidays, freedom from debt. If I stayed in, retirement would be comfortable. Safe. Predictable.
+  </p>
+
+  <p>
+    But here's the thing I couldn't shake: 10x more money wouldn't mean 10x more happiness. That's not an exponential curve I wanted to chase. I wasn't going to grind for twenty more years just to retire with a bigger bank balance and the same regrets.
+  </p>
+
+  <blockquote>
+    "Life is beautiful when things are in motion. Things start to suck when they become constant."
+  </blockquote>
+
+  <p>
+    That's when I knew. I wasn't leaving because the Navy was bad. I was leaving because I needed motion. I needed to build something that had my name on it — not as a rank, but as a creator.
+  </p>
+
+  <h2>The Two Options</h2>
+
+  <p>
+    After deciding to leave, I did what any rational person would do: I went to IIM Ahmedabad for an MBA. The PGPX program. One year to figure out what I actually wanted.
+  </p>
+
+  <p>
+    By the end of it, I had two clear paths:
+  </p>
+
+  <ul>
+    <li><strong>Option 1:</strong> Take a well-paying job. Save for 20 years. Retire quietly. Play it safe.</li>
+    <li><strong>Option 2:</strong> Take a risk. Build something. Leave behind something that has my name on it as a creator, not a consumer.</li>
+  </ul>
+
+  <p>
+    Option 1 is what most people choose. It's rational. It's low-risk. But it's also the path where, at 60, you look back and wonder "what if?"
+  </p>
+
+  <p>
+    I chose Option 2. Even if I fail, Plan A is still there. But I'd rather fail building something than succeed at playing it safe.
+  </p>
+
+  <h2>Enter KWIK</h2>
+
+  <p>
+    KWIK is the company I'm building. The north star. The legacy project. It's not a side hustle or a "let's see what happens" experiment. This is the thing I left the Navy to create.
+  </p>
+
+  <p>
+    The first vertical is <strong>kwikCNC</strong> — focused on precision CNC machining in India. Manufacturing is broken in ways that most people don't see unless they're in the trenches. Long lead times. Inconsistent quality. Opaque pricing. No real tech layer connecting customers to capacity.
+  </p>
+
+  <p>
+    kwikCNC is my answer to that. It's early. It's hard. But it's exactly the kind of problem I want to spend the next decade solving.
+  </p>
+
+  <div class="callout">
+    <p>
+      <strong>The goal isn't to get rich quick.</strong> The goal is to build something that matters, something that scales, and something that I can look back on and say: "I created that."
+    </p>
+  </div>
+
+  <h2>What's Next</h2>
+
+  <p>
+    I don't know if KWIK will be a unicorn or a cautionary tale. I don't know if I'll look back in ten years and call this the best decision I ever made or the most expensive lesson I ever learned.
+  </p>
+
+  <p>
+    But I do know this: I'd rather be in motion than standing still. I'd rather fail building something than succeed at playing it safe. And if I'm going to spend the next thirty years working, I want it to be on something that has my name on it — as a creator.
+  </p>
+
+  <p>
+    That's why I left the Navy. That's why I'm building KWIK. And that's why, even on the hard days, I don't regret it for a second.
+  </p>
+
+  <hr>
+
+  <p>
+    <em>Building in public. Have thoughts? Reach out at <a href="mailto:parth@kwikcnc.com">parth@kwikcnc.com</a> or find me on <a href="https://www.linkedin.com/in/parthhgohil" target="_blank">LinkedIn</a>.</em>
+  </p>
+
+</article>
+
+<footer>
+  <strong>Lt Cdr Parth Gohil (Retd.)</strong> · Founder, KWIK · Building things that move
+</footer>
+
+</body>
+</html>
