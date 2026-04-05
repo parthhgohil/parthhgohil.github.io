@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lt Cdr Parth Gohil (Retd.) — Founder, KWIK</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --cream: #faf6ef;
+    --warm-white: #fff9f2;
+    --navy: #0f1f3d;
+    --navy-mid: #1a3260;
+    --rust: #c94f2a;
+    --amber: #e8a030;
+    --sage: #4a7c6f;
+    --sand: #e8dcc8;
+    --text: #2a2018;
+    --muted: #7a6e60;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(250,246,239,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(232,220,200,0.5);
+  }
+
+  .nav-logo img {
+    height: 36px;
+    width: auto;
+    display: block;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--rust); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--navy);
+    padding: 140px 64px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Subtle anchor chain pattern */
+  .hero-left::before {
+    content: '⚓';
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    font-size: 260px;
+    opacity: 0.04;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 32px;
+    width: fit-content;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--amber);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+
+  .hero-name {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(38px, 4.5vw, 62px);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 8px;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  .hero-rank {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 28px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-tagline {
+    font-size: 17px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.75);
+    max-width: 400px;
+    margin-bottom: 48px;
+    font-weight: 300;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-tagline strong {
+    color: var(--amber);
+    font-weight: 500;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  .btn-primary {
+    background: var(--rust);
+    color: #fff;
+    padding: 13px 28px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover { background: #a83e1e; transform: translateY(-1px); }
+
+  .btn-secondary {
+    background: transparent;
+    color: rgba(255,255,255,0.8);
+    padding: 13px 28px;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.2);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+  .hero-right {
+    background: var(--warm-white);
+    padding: 140px 64px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* Diagonal stripe accent */
+  .hero-right::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; left: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, var(--rust), var(--amber), var(--sage));
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 48px;
+    animation: fadeUp 0.8s 0.5s ease both;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .stat-num {
+    font-family: 'Fraunces', serif;
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--rust);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .hero-quote {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.6;
+    padding: 24px 0 0 24px;
+    border-left: 3px solid var(--amber);
+    animation: fadeUp 0.8s 0.6s ease both;
+  }
+
+  /* ─── GLOBAL SECTIONS ─── */
+  section {
+    padding: 100px 0;
+    position: relative;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  .section-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 5vw, 54px);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 48px;
+    color: var(--text);
+  }
+
+  .section-title em {
+    color: var(--rust);
+    font-style: normal;
+  }
+
+  /* ─── ABOUT ─── */
+  #about {
+    background: var(--warm-white);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 64px;
+  }
+
+  .about-body p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+
+  .about-body strong {
+    font-weight: 500;
+    color: var(--rust);
+  }
+
+  .about-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .sidebar-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .edu-card {
+    margin-bottom: 16px;
+  }
+
+  .edu-degree {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .edu-inst {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    background: var(--sand);
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  /* ─── PHILOSOPHY STRIP ─── */
+  .philosophy-strip {
+    background: var(--navy);
+    padding: 64px 0;
+  }
+
+  .philosophy-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  .philosophy-quote {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-style: italic;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  /* ─── WORK ─── */
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+  }
+
+  .work-card {
+    background: var(--warm-white);
+    border: 1px solid var(--sand);
+    border-radius: 8px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .work-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(42, 32, 24, 0.08);
+  }
+
+  .work-card.featured {
+    border: 2px solid var(--amber);
+    background: linear-gradient(135deg, var(--warm-white) 0%, rgba(232,160,48,0.05) 100%);
+  }
+
+  .work-card-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 12px;
+  }
+
+  .work-card-title {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .work-card-desc {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  .work-card-icon {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    font-size: 48px;
+    opacity: 0.15;
+  }
+
+  /* ─── ARTICLES (NEW) ─── */
+  #articles {
+    background: var(--warm-white);
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
+  }
+
+  .article-card {
+    background: #fff;
+    border: 1px solid var(--sand);
+    border-radius: 8px;
+    padding: 28px;
+    text-decoration: none;
+    display: block;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .article-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--rust);
+    box-shadow: 0 8px 24px rgba(42, 32, 24, 0.06);
+  }
+
+  .article-date {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .article-title {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+
+  .article-excerpt {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .article-read-more {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--rust);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .article-read-more::after {
+    content: '→';
+    transition: transform 0.2s;
+  }
+
+  .article-card:hover .article-read-more::after {
+    transform: translateX(4px);
+  }
+
+  /* ─── SERVICES ─── */
+  .services-intro {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text);
+    max-width: 680px;
+    margin-bottom: 48px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .service-card {
+    background: var(--warm-white);
+    border: 1px solid var(--sand);
+    border-radius: 8px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-icon {
+    font-size: 42px;
+    margin-bottom: 20px;
+  }
+
+  .service-title {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .service-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--muted);
+    margin-bottom: 24px;
+    flex: 1;
+  }
+
+  .service-cta {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--rust);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .service-cta::after {
+    content: '→';
+    transition: transform 0.2s;
+  }
+
+  .service-cta:hover::after {
+    transform: translateX(4px);
+  }
+
+  /* ─── CONTACT ─── */
+  #contact {
+    background: var(--warm-white);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+  }
+
+  .contact-left p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text);
+    margin-bottom: 40px;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid var(--sand);
+    border-radius: 6px;
+    text-decoration: none;
+    transition: border-color 0.2s;
+  }
+
+  .contact-link:hover {
+    border-color: var(--rust);
+  }
+
+  .contact-link-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  .contact-link-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .contact-link-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .contact-link-value {
+    font-size: 14px;
+    color: var(--text);
+  }
+
+  .contact-form-wrapper {
+    background: #fff;
+    border: 1px solid var(--sand);
+    border-radius: 8px;
+    padding: 32px;
+  }
+
+  .form-title {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .form-input,
+  .form-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--sand);
+    border-radius: 4px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--cream);
+    transition: border-color 0.2s;
+  }
+
+  .form-input:focus,
+  .form-textarea:focus {
+    outline: none;
+    border-color: var(--rust);
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .form-submit {
+    width: 100%;
+    padding: 14px 24px;
+    background: var(--rust);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .form-submit:hover {
+    background: #a83e1e;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--navy);
+    padding: 32px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .footer-left strong {
+    color: rgba(255,255,255,0.9);
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav {
+      padding: 16px 24px;
+    }
+
+    .nav-links {
+      gap: 20px;
+    }
+
+    .hero {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-left,
+    .hero-right {
+      padding: 100px 32px 60px;
+    }
+
+    .stat-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .about-grid,
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .container {
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 60px 0;
+    }
+
+    footer {
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+      padding: 24px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="data:image/svg+xml,%3Csvg width='120' height='36' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='0' y='28' font-family='Fraunces, serif' font-size='32' font-weight='700' fill='%23c94f2a'%3EKWIK%3C/text%3E%3C/svg%3E" alt="KWIK"/>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#articles">Articles</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">Available for Select Projects</div>
+    <h1 class="hero-name">Parth Gohil</h1>
+    <p class="hero-rank">Lt Cdr (Retd.) · Indian Navy</p>
+    <p class="hero-tagline">
+      A decade in uniform. An MBA from IIM-A. Now building <strong>KWIK</strong> — accelerating manufacturing in India, one precision part at a time.
+    </p>
+    <div class="hero-ctas">
+      <a href="#work" class="btn-primary">What I'm Building</a>
+      <a href="#contact" class="btn-secondary">Let's Talk</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-grid">
+      <div class="stat-item">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Years serving<br>in the Indian Navy</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Degrees across<br>engineering & management</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">1</div>
+        <div class="stat-label">Company being<br>built from scratch</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">33</div>
+        <div class="stat-label">Years of life<br>lived to the fullest</div>
+      </div>
+    </div>
+    <div class="hero-quote">
+      "Life is beautiful when things are in motion. Things start to suck when they become constant."
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <p class="section-eyebrow reveal">About Me</p>
+    <h2 class="section-title reveal">From the quarterdeck<br>to the <em>factory floor</em></h2>
+    <div class="about-grid">
+      <div class="about-body">
+        <p class="reveal">I am all about <strong>agency, experimentation, and exploration.</strong> My decade in the Navy was super enriching — it taught me more about life than work. It gave me comrades for life and memories I will cherish forever.</p>
+        <p class="reveal">Along the way, something crystallised: money alone doesn't make you happy. The Navy's structured life gave me enough — a good house, a car, holidays, freedom from debt. But it also showed me that 10x money wouldn't mean 10x happiness. That's not an exponential curve I wanted to chase.</p>
+        <p class="reveal">So I made a choice. Leave the forces. Do an MBA at IIM Ahmedabad. Figure out what I actually wanted. Two options on the table: take a job, save for 20 years, retire quietly — or take a risk, build something, and leave behind something that has my name on it as a creator.</p>
+        <p class="reveal"><strong>I chose the second.</strong> That choice is called KWIK. Even if I fail, Plan A is still there. But in any case — life is beautiful when things are in motion.</p>
+      </div>
+      <div class="about-sidebar reveal">
+        <div class="sidebar-label">Education</div>
+        <div class="edu-card">
+          <div class="edu-degree">PGPX — Post Graduate Programme for Executives</div>
+          <div class="edu-inst">IIM Ahmedabad · 2024–25</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-degree">PGDM — Marine Engineering</div>
+          <div class="edu-inst">CUSAT, Cochin</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-degree">BE — Mechanical Engineering</div>
+          <div class="edu-inst">2010–2014</div>
+        </div>
+
+        <div class="sidebar-label">Strengths & Domains</div>
+        <div class="tag-list">
+          <span class="tag">Naval Operations</span>
+          <span class="tag">Technical Leadership</span>
+          <span class="tag">Defence Procurement</span>
+          <span class="tag">Manufacturing Strategy</span>
+          <span class="tag">Contracting</span>
+          <span class="tag">Veteran Transition</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY STRIP -->
+<div class="philosophy-strip">
+  <div class="philosophy-inner">
+    <p class="philosophy-quote">
+      I didn't leave the Navy to play it safe. I left to build something that has my name on it — as a creator.
+    </p>
+  </div>
+</div>
+
+<!-- WORK -->
+<section id="work">
+  <div class="container">
+    <p class="section-eyebrow reveal">What I'm Building</p>
+    <h2 class="section-title reveal">Building <em>KWIK</em></h2>
+    <div class="work-grid">
+      <div class="work-card featured reveal">
+        <div class="work-card-tag">Current Venture · Active</div>
+        <div class="work-card-title">KWIK — Accelerating Manufacturing in India</div>
+        <div class="work-card-desc">
+          KWIK is my north star: a company built to accelerate manufacturing in India. The first vertical — <strong style="color:var(--amber)">kwikCNC</strong> — is in the CNC machining space, solving real problems in precision manufacturing. This is not a side hustle. This is the legacy project.
+        </div>
+        <div class="work-card-icon">⚙️</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 64px;">
+      <p class="section-eyebrow reveal">Where I Come From</p>
+      <h2 class="section-title reveal">A decade at <em>sea</em></h2>
+      <div class="work-grid">
+        <div class="work-card reveal">
+          <div class="work-card-tag">Naval Career · 10+ Years</div>
+          <div class="work-card-title">Technical Officer, Indian Navy</div>
+          <div class="work-card-desc">
+            Served on multiple warships as a technical officer — covering everything from ship operations and strategy to planning, contracting, and new ship inductions. The Navy didn't just shape my career; it shaped how I think, lead, and solve problems under pressure. It's the reason KWIK exists.
+          </div>
+          <div class="work-card-icon">⚓</div>
+        </div>
+        <div class="work-card reveal">
+          <div class="work-card-tag">Management · IIM Ahmedabad · 2025</div>
+          <div class="work-card-title">PGPX — The Bridge to Building</div>
+          <div class="work-card-desc">
+            After a decade in uniform, I chose the harder second option: build something. The PGPX at IIM-A was the inflection point — not just the credential, but the space to think clearly about what I wanted to leave behind and what kind of builder I wanted to become.
+          </div>
+          <div class="work-card-icon">🎓</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLES (NEW SECTION) -->
+<section id="articles">
+  <div class="container">
+    <p class="section-eyebrow reveal">Writing</p>
+    <h2 class="section-title reveal">Recent <em>articles</em></h2>
+    <div class="articles-grid">
+      
+      <!-- ARTICLE 1 — Example (Delete this and add your own) -->
+      <a href="blog/why-i-left-the-navy.html" class="article-card reveal">
+        <div class="article-date">April 2026</div>
+        <div class="article-title">Why I Left the Navy to Build KWIK</div>
+        <p class="article-excerpt">
+          After ten years in uniform, I had to make a choice: take the safe path or build something with my name on it. Here's why I chose the second.
+        </p>
+        <span class="article-read-more">Read article</span>
+      </a>
+
+      <!-- ADD NEW ARTICLES HERE -->
+      <!-- Just copy-paste the block above, change the href, date, title, and excerpt -->
+
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <p class="section-eyebrow reveal">How I Can Help</p>
+    <h2 class="section-title reveal">Services &<br><em>collaborations</em></h2>
+    <p class="services-intro reveal">I'm building KWIK, but I'm also here for the people and organisations I can genuinely help. Here's where I can add value.</p>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">⚓</div>
+        <div class="service-title">Veteran Career Mentorship</div>
+        <div class="service-desc">
+          If you're a short-service commissioned officer figuring out your second innings post-retirement — I've been there. Let's talk through options, clarity, and next steps.
+        </div>
+        <a href="mailto:parth@kwikcnc.com" class="service-cta">Reach out</a>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🛡️</div>
+        <div class="service-title">Defence Market Consulting</div>
+        <div class="service-desc">
+          Companies looking to understand opportunities in India's defence sector — procurement, contracting, product fit, and navigating the landscape. I can help you find your entry point.
+        </div>
+        <a href="mailto:parth@kwikcnc.com" class="service-cta">Let's explore</a>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🏭</div>
+        <div class="service-title">KWIK & kwikCNC</div>
+        <div class="service-desc">
+          If you're in manufacturing and want to understand what we're building at KWIK — or explore how kwikCNC can solve your precision machining needs — reach out directly.
+        </div>
+        <a href="mailto:parth@kwikcnc.com" class="service-cta">Know more</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <p class="section-eyebrow reveal">Let's Talk</p>
+    <h2 class="section-title reveal">Get in <em>touch</em></h2>
+    <div class="contact-grid">
+      <div class="contact-left">
+        <p class="reveal">Whether you're a fellow veteran navigating what's next, a company curious about the defence space, or someone who just wants to talk manufacturing and building — my inbox is open.</p>
+        <div class="contact-links reveal">
+          <a href="mailto:parth@kwikcnc.com" class="contact-link">
+            <div class="contact-link-icon">✉️</div>
+            <div class="contact-link-text">
+              <div class="contact-link-label">Email</div>
+              <div class="contact-link-value">parth@kwikcnc.com</div>
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/in/parthhgohil" target="_blank" class="contact-link">
+            <div class="contact-link-icon">💼</div>
+            <div class="contact-link-text">
+              <div class="contact-link-label">LinkedIn</div>
+              <div class="contact-link-value">linkedin.com/in/parthhgohil</div>
+            </div>
+          </a>
+          <div class="contact-link" style="cursor:default; opacity:0.6;">
+            <div class="contact-link-icon">🔗</div>
+            <div class="contact-link-text">
+              <div class="contact-link-label">Topmate</div>
+              <div class="contact-link-value">Coming soon</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form-wrapper reveal">
+        <div class="form-title">Send a message</div>
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input type="text" class="form-input" placeholder="What should I call you?"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" placeholder="your@email.com"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">What's on your mind?</label>
+          <textarea class="form-textarea" placeholder="Tell me what you'd like to discuss..."></textarea>
+        </div>
+        <button class="form-submit" onclick="handleSubmit()">Send Message</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <strong>Lt Cdr Parth Gohil (Retd.)</strong> · Founder, KWIK
+  </div>
+  <div class="footer-right">Building things that move · India</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => observer.observe(r));
+
+  // Contact form
+  function handleSubmit() {
+    const inputs = document.querySelectorAll('.form-input, .form-textarea');
+    let filled = true;
+    inputs.forEach(i => { if (!i.value.trim()) filled = false; });
+    if (!filled) {
+      alert('Please fill in all fields before submitting.');
+      return;
+    }
+    alert('Thanks for reaching out! This is a demo form. For now, please email me directly at parth@kwikcnc.com');
+  }
+</script>
+</body>
+</html>
