@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin — Parth Gohil</title>
+<!-- Noindex: keep this page out of search results -->
+<meta name="robots" content="noindex, nofollow"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --cream: #faf6ef;
+    --warm-white: #fff9f2;
+    --navy: #0f1f3d;
+    --navy-mid: #1a3260;
+    --rust: #c94f2a;
+    --rust-hover: #b04424;
+    --amber: #e8a030;
+    --sand: #e8dcc8;
+    --text: #2a2018;
+    --muted: #7a6e60;
+    --border: rgba(232,220,200,0.8);
+    --success: #4a7c6f;
+    --error: #c94f2a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  /* ─── PASSWORD GATE ─── */
+  #gate {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+  }
+
+  .gate-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 48px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+
+  .gate-card h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .gate-card p {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+
+  .gate-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--cream);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+    text-align: center;
+    letter-spacing: 4px;
+    margin-bottom: 16px;
+  }
+  .gate-input:focus { border-color: var(--navy); }
+  .gate-input.error { border-color: var(--error); }
+
+  .gate-error {
+    font-size: 13px;
+    color: var(--error);
+    margin-bottom: 16px;
+    min-height: 20px;
+  }
+
+  /* ─── SHARED BUTTON STYLES ─── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s, opacity 0.2s;
+  }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .btn-primary {
+    background: var(--navy);
+    color: #fff;
+    width: 100%;
+    justify-content: center;
+  }
+  .btn-primary:hover:not(:disabled) { background: var(--navy-mid); }
+
+  .btn-publish {
+    background: var(--rust);
+    color: #fff;
+    padding: 14px 32px;
+    font-size: 15px;
+  }
+  .btn-publish:hover:not(:disabled) { background: var(--rust-hover); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 10px 18px;
+    font-size: 13px;
+  }
+  .btn-ghost:hover { color: var(--text); border-color: var(--text); }
+
+  /* ─── ADMIN LAYOUT ─── */
+  #admin { display: none; }
+
+  .admin-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(250,246,239,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .admin-nav-title {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .admin-nav-title span { color: var(--rust); }
+
+  .admin-nav-actions { display: flex; gap: 12px; align-items: center; }
+
+  .admin-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 40px;
+    align-items: start;
+  }
+
+  /* ─── EDITOR PANEL ─── */
+  .editor-panel { display: flex; flex-direction: column; gap: 24px; }
+
+  .field-group { display: flex; flex-direction: column; gap: 6px; }
+
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .field-input, .field-textarea {
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--warm-white);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .field-input:focus, .field-textarea:focus { border-color: var(--navy); }
+
+  .slug-input { font-family: monospace; font-size: 13px; color: var(--muted); }
+  .slug-prefix { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .slug-prefix span { font-family: monospace; }
+
+  /* ─── CONTENT EDITOR ─── */
+  .content-editor-wrap { display: flex; flex-direction: column; gap: 0; }
+
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 10px 12px;
+    background: var(--sand);
+    border: 1px solid var(--border);
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .toolbar-btn {
+    padding: 5px 10px;
+    border-radius: 4px;
+    background: transparent;
+    border: 1px solid transparent;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    white-space: nowrap;
+  }
+  .toolbar-btn:hover { background: var(--warm-white); border-color: var(--border); }
+  .toolbar-sep { width: 1px; background: var(--border); margin: 2px 4px; }
+
+  #content {
+    border-radius: 0;
+    border: 1px solid var(--border);
+    border-bottom: none;
+    resize: none;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    min-height: 360px;
+    padding: 16px;
+    background: var(--warm-white);
+    outline: none;
+    width: 100%;
+    color: var(--text);
+    transition: border-color 0.2s;
+  }
+  #content:focus { border-color: var(--navy); }
+
+  .editor-footer {
+    border: 1px solid var(--border);
+    border-radius: 0 0 8px 8px;
+    padding: 8px 14px;
+    background: var(--sand);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ─── PREVIEW ─── */
+  .preview-toggle-bar {
+    display: flex;
+    gap: 2px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    width: fit-content;
+  }
+  .preview-tab {
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 500;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--muted);
+    transition: background 0.15s, color 0.15s;
+  }
+  .preview-tab.active { background: var(--navy); color: #fff; }
+
+  .preview-pane {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--warm-white);
+    padding: 32px;
+    min-height: 400px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    overflow-y: auto;
+  }
+
+  /* Mirror article styles inside preview */
+  .preview-pane p { margin-bottom: 20px; font-size: 15px; line-height: 1.8; }
+  .preview-pane h2 { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; margin-top: 36px; margin-bottom: 16px; color: var(--text); }
+  .preview-pane h3 { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; margin-top: 28px; margin-bottom: 12px; color: var(--text); }
+  .preview-pane strong { font-weight: 500; color: var(--rust); }
+  .preview-pane em { font-style: italic; }
+  .preview-pane blockquote { border-left: 3px solid var(--amber); padding-left: 20px; margin: 24px 0; font-family: 'Fraunces', serif; font-size: 17px; font-style: italic; color: var(--muted); line-height: 1.7; }
+  .preview-pane ul, .preview-pane ol { margin-left: 20px; margin-bottom: 20px; }
+  .preview-pane li { margin-bottom: 8px; font-size: 15px; }
+  .preview-pane hr { border: none; border-top: 1px solid var(--sand); margin: 36px 0; }
+  .preview-pane a { color: var(--rust); text-decoration: underline; text-underline-offset: 2px; }
+  .preview-pane .callout { background: var(--cream); border-left: 4px solid var(--rust); padding: 18px 22px; margin: 24px 0; border-radius: 0 6px 6px 0; }
+  .preview-pane .callout p { margin-bottom: 0; font-size: 14px; }
+
+  /* ─── SIDEBAR ─── */
+  .sidebar { display: flex; flex-direction: column; gap: 24px; }
+
+  .sidebar-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .sidebar-card-header {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+  }
+  .sidebar-card-header h3 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .sidebar-card-header .toggle-icon { font-size: 12px; color: var(--muted); transition: transform 0.2s; }
+  .sidebar-card-header.collapsed .toggle-icon { transform: rotate(-90deg); }
+
+  .sidebar-card-body { padding: 18px; }
+  .sidebar-card-body.hidden { display: none; }
+
+  .sidebar-card-body .field-group { margin-bottom: 14px; }
+  .sidebar-card-body .field-group:last-child { margin-bottom: 0; }
+
+  /* ─── PUBLISH STATUS ─── */
+  #publish-status {
+    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    display: none;
+    line-height: 1.5;
+  }
+  #publish-status.success { background: rgba(74,124,111,0.1); color: var(--success); border: 1px solid rgba(74,124,111,0.2); }
+  #publish-status.error { background: rgba(201,79,42,0.08); color: var(--error); border: 1px solid rgba(201,79,42,0.2); }
+
+  /* ─── POSTS LIST ─── */
+  .posts-list { display: flex; flex-direction: column; gap: 0; }
+
+  .post-list-item {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .post-list-item:last-child { border-bottom: none; }
+  .post-list-item:hover { background: var(--cream); }
+
+  .post-list-item-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .post-list-item-meta { font-size: 11px; color: var(--muted); }
+
+  .posts-list-empty { padding: 18px; font-size: 13px; color: var(--muted); text-align: center; }
+
+  /* ─── WORD COUNT ─── */
+  #word-count { font-size: 12px; color: var(--muted); }
+
+  @media (max-width: 900px) {
+    .admin-main { grid-template-columns: 1fr; }
+    .admin-nav { padding: 14px 20px; }
+    .admin-main { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PASSWORD GATE -->
+<div id="gate">
+  <div class="gate-card">
+    <h1>Admin</h1>
+    <p>parthhgohil.github.io</p>
+    <input
+      id="gate-pw"
+      type="password"
+      class="gate-input"
+      placeholder="••••••••"
+      autocomplete="current-password"
+      onkeydown="if(event.key==='Enter') unlock()"
+    />
+    <div id="gate-error" class="gate-error"></div>
+    <button class="btn btn-primary" onclick="unlock()">Enter</button>
+  </div>
+</div>
+
+<!-- ADMIN INTERFACE -->
+<div id="admin">
+
+  <nav class="admin-nav">
+    <div class="admin-nav-title">Admin <span>·</span> New Post</div>
+    <div class="admin-nav-actions">
+      <button class="btn btn-ghost" onclick="saveDraft()">Save draft</button>
+      <button class="btn btn-ghost" id="clear-btn" onclick="clearForm()">Clear</button>
+      <button class="btn btn-publish" id="publish-btn" onclick="publish()">Publish</button>
+    </div>
+  </nav>
+
+  <div class="admin-main">
+
+    <!-- LEFT: EDITOR -->
+    <div class="editor-panel">
+
+      <div class="field-row">
+        <div class="field-group">
+          <label for="title">Title</label>
+          <input id="title" type="text" class="field-input" placeholder="Your post title" oninput="onTitleChange()" autocomplete="off"/>
+        </div>
+        <div class="field-group">
+          <label for="date">Date</label>
+          <input id="date" type="text" class="field-input" placeholder="e.g. April 2026" autocomplete="off"/>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label for="excerpt">Excerpt <span style="font-weight:300;text-transform:none;letter-spacing:0">— shown on homepage card and as article subtitle</span></label>
+        <textarea id="excerpt" class="field-input field-textarea" rows="2" placeholder="One or two sentences. Shown on the homepage card and below the article title."></textarea>
+      </div>
+
+      <div class="field-group">
+        <label for="slug">Slug (URL)</label>
+        <input id="slug" type="text" class="field-input slug-input" placeholder="auto-generated-from-title" autocomplete="off"/>
+        <div class="slug-prefix">URL: <span id="slug-preview">parthhgohil.github.io/blog/post.html?slug=<em>your-slug</em></span></div>
+      </div>
+
+      <!-- CONTENT EDITOR -->
+      <div class="field-group">
+        <label>Content <span style="font-weight:300;text-transform:none;letter-spacing:0">— Markdown supported</span></label>
+
+        <div class="preview-toggle-bar" style="margin-bottom:8px">
+          <button class="preview-tab active" id="tab-write" onclick="switchTab('write')">Write</button>
+          <button class="preview-tab" id="tab-preview" onclick="switchTab('preview')">Preview</button>
+        </div>
+
+        <div id="panel-write" class="content-editor-wrap">
+          <div class="toolbar">
+            <button class="toolbar-btn" onclick="ins('**','**','bold text')" title="Bold">B</button>
+            <button class="toolbar-btn" onclick="ins('*','*','italic text')" title="Italic"><em>I</em></button>
+            <div class="toolbar-sep"></div>
+            <button class="toolbar-btn" onclick="insLine('## ','Section heading')" title="Heading 2">H2</button>
+            <button class="toolbar-btn" onclick="insLine('### ','Subheading')" title="Heading 3">H3</button>
+            <div class="toolbar-sep"></div>
+            <button class="toolbar-btn" onclick="insLine('> ','Your quote here')" title="Blockquote">❝ Quote</button>
+            <button class="toolbar-btn" onclick="insLine('- ','List item')" title="Bullet list">— List</button>
+            <button class="toolbar-btn" onclick="insBlock('---')" title="Divider">— Divider</button>
+            <div class="toolbar-sep"></div>
+            <button class="toolbar-btn" onclick="insCallout()" title="Callout box">Callout</button>
+            <button class="toolbar-btn" onclick="ins('[','](https://)','link text')" title="Link">🔗 Link</button>
+          </div>
+          <textarea
+            id="content"
+            placeholder="Write your post content here. Use the toolbar above for formatting, or write Markdown directly."
+            oninput="onContentChange()"
+            onkeydown="handleTabKey(event)"
+          ></textarea>
+          <div class="editor-footer">
+            <span>Markdown · HTML allowed</span>
+            <span id="word-count">0 words</span>
+          </div>
+        </div>
+
+        <div id="panel-preview" class="preview-pane" style="display:none">
+          <em style="color:var(--muted);font-size:13px">Preview will appear here…</em>
+        </div>
+      </div>
+
+      <div id="publish-status"></div>
+
+    </div>
+
+    <!-- RIGHT: SIDEBAR -->
+    <div class="sidebar">
+
+      <!-- GitHub Settings -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-header" onclick="toggleCard(this)">
+          <h3>GitHub Settings</h3>
+          <span class="toggle-icon">▾</span>
+        </div>
+        <div class="sidebar-card-body">
+          <div class="field-group">
+            <label for="gh-repo">Repository</label>
+            <input id="gh-repo" type="text" class="field-input" value="parthhgohil/parthhgohil.github.io" autocomplete="off"/>
+          </div>
+          <div class="field-group">
+            <label for="gh-pat">Personal Access Token</label>
+            <input id="gh-pat" type="password" class="field-input" placeholder="github_pat_…" autocomplete="off"/>
+            <div class="slug-prefix" style="margin-top:4px">Saved to localStorage on this device</div>
+          </div>
+          <button class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:8px" onclick="savePAT()">Save token</button>
+        </div>
+      </div>
+
+      <!-- Draft -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-header" onclick="toggleCard(this)">
+          <h3>Draft</h3>
+          <span class="toggle-icon">▾</span>
+        </div>
+        <div class="sidebar-card-body">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="saveDraft()">Save draft</button>
+            <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="loadDraft()">Load draft</button>
+            <button class="btn btn-ghost" style="width:100%;justify-content:center;color:var(--rust)" onclick="clearDraft()">Clear draft</button>
+          </div>
+          <div id="draft-status" style="font-size:12px;color:var(--muted);margin-top:10px;text-align:center"></div>
+        </div>
+      </div>
+
+      <!-- Existing Posts -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-header" onclick="toggleCard(this)">
+          <h3>Published Posts</h3>
+          <span class="toggle-icon">▾</span>
+        </div>
+        <div class="sidebar-card-body" style="padding:0">
+          <div id="posts-list" class="posts-list">
+            <div class="posts-list-empty">Loading…</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked@9/marked.min.js"></script>
+<script>
+  // ─── CONFIG ──────────────────────────────────────────────────
+  // SHA-256 of "kwik@admin2026" — change by running in console:
+  // sha256('your-new-password').then(h => console.log(h))
+  // then update this constant and push to GitHub.
+  const ADMIN_HASH = '232de5924661eae3298fecc4c7b4e85fc91446881d05d90468744f07501e9866';
+
+  // ─── PASSWORD GATE ───────────────────────────────────────────
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  async function unlock() {
+    const pw = document.getElementById('gate-pw').value;
+    const errEl = document.getElementById('gate-error');
+    const input = document.getElementById('gate-pw');
+
+    if (!pw) { errEl.textContent = 'Enter a password.'; input.classList.add('error'); return; }
+
+    const hash = await sha256(pw);
+    if (hash === ADMIN_HASH) {
+      document.getElementById('gate').style.display = 'none';
+      document.getElementById('admin').style.display = 'block';
+      initAdmin();
+    } else {
+      errEl.textContent = 'Incorrect password.';
+      input.classList.add('error');
+      input.value = '';
+      input.focus();
+    }
+  }
+
+  // ─── INIT ────────────────────────────────────────────────────
+  function initAdmin() {
+    // Restore saved PAT
+    const pat = localStorage.getItem('gh_pat');
+    if (pat) document.getElementById('gh-pat').value = pat;
+
+    // Restore saved repo
+    const repo = localStorage.getItem('gh_repo');
+    if (repo) document.getElementById('gh-repo').value = repo;
+
+    // Pre-fill today's date
+    document.getElementById('date').value = new Date().toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+
+    loadPostsList();
+    updateWordCount();
+  }
+
+  // ─── SLUG ────────────────────────────────────────────────────
+  let slugManuallyEdited = false;
+
+  function onTitleChange() {
+    if (!slugManuallyEdited) {
+      const slug = toSlug(document.getElementById('title').value);
+      document.getElementById('slug').value = slug;
+      updateSlugPreview(slug);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('slug').addEventListener('input', () => {
+      slugManuallyEdited = true;
+      updateSlugPreview(document.getElementById('slug').value);
+    });
+  });
+
+  function updateSlugPreview(slug) {
+    const el = document.getElementById('slug-preview');
+    el.innerHTML = `parthhgohil.github.io/blog/post.html?slug=<em>${escHtml(slug || 'your-slug')}</em>`;
+  }
+
+  function toSlug(str) {
+    return str.toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .trim()
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-');
+  }
+
+  // ─── TOOLBAR ─────────────────────────────────────────────────
+  function ins(before, after, placeholder) {
+    const ta = document.getElementById('content');
+    const s = ta.selectionStart, e = ta.selectionEnd;
+    const selected = ta.value.substring(s, e) || placeholder;
+    const insert = before + selected + after;
+    ta.value = ta.value.substring(0, s) + insert + ta.value.substring(e);
+    ta.focus();
+    ta.selectionStart = s + before.length;
+    ta.selectionEnd = s + before.length + selected.length;
+    onContentChange();
+  }
+
+  function insLine(prefix, placeholder) {
+    const ta = document.getElementById('content');
+    const s = ta.selectionStart;
+    const lineStart = ta.value.lastIndexOf('\n', s - 1) + 1;
+    const insert = '\n' + prefix + (ta.value.substring(s, ta.selectionEnd) || placeholder);
+    ta.value = ta.value.substring(0, s) + insert + ta.value.substring(ta.selectionEnd);
+    ta.focus();
+    const newPos = s + insert.length;
+    ta.selectionStart = ta.selectionEnd = newPos;
+    onContentChange();
+  }
+
+  function insBlock(text) {
+    const ta = document.getElementById('content');
+    const s = ta.selectionStart;
+    const insert = '\n\n' + text + '\n\n';
+    ta.value = ta.value.substring(0, s) + insert + ta.value.substring(s);
+    ta.focus();
+    ta.selectionStart = ta.selectionEnd = s + insert.length;
+    onContentChange();
+  }
+
+  function insCallout() {
+    const ta = document.getElementById('content');
+    const s = ta.selectionStart;
+    const selected = ta.value.substring(s, ta.selectionEnd) || 'Your callout text here.';
+    const insert = '\n\n<div class="callout"><p>' + selected + '</p></div>\n\n';
+    ta.value = ta.value.substring(0, s) + insert + ta.value.substring(ta.selectionEnd);
+    ta.focus();
+    ta.selectionStart = ta.selectionEnd = s + insert.length;
+    onContentChange();
+  }
+
+  function handleTabKey(e) {
+    if (e.key !== 'Tab') return;
+    e.preventDefault();
+    const ta = document.getElementById('content');
+    const s = ta.selectionStart;
+    ta.value = ta.value.substring(0, s) + '  ' + ta.value.substring(ta.selectionEnd);
+    ta.selectionStart = ta.selectionEnd = s + 2;
+  }
+
+  // ─── PREVIEW ─────────────────────────────────────────────────
+  function switchTab(tab) {
+    const isWrite = tab === 'write';
+    document.getElementById('panel-write').style.display = isWrite ? 'block' : 'none';
+    document.getElementById('panel-preview').style.display = isWrite ? 'none' : 'block';
+    document.getElementById('tab-write').classList.toggle('active', isWrite);
+    document.getElementById('tab-preview').classList.toggle('active', !isWrite);
+    if (!isWrite) renderPreview();
+  }
+
+  function renderPreview() {
+    const content = document.getElementById('content').value;
+    const pane = document.getElementById('panel-preview');
+    if (!content.trim()) {
+      pane.innerHTML = '<em style="color:var(--muted);font-size:13px">Nothing to preview yet…</em>';
+      return;
+    }
+    pane.innerHTML = marked.parse(content, { breaks: false, gfm: true });
+  }
+
+  function onContentChange() {
+    updateWordCount();
+    // Update preview if it's visible
+    if (document.getElementById('panel-preview').style.display !== 'none') renderPreview();
+  }
+
+  function updateWordCount() {
+    const words = document.getElementById('content').value.trim().split(/\s+/).filter(Boolean).length;
+    document.getElementById('word-count').textContent = words + (words === 1 ? ' word' : ' words');
+  }
+
+  // ─── DRAFT ───────────────────────────────────────────────────
+  function saveDraft() {
+    const draft = {
+      title: document.getElementById('title').value,
+      date: document.getElementById('date').value,
+      excerpt: document.getElementById('excerpt').value,
+      slug: document.getElementById('slug').value,
+      content: document.getElementById('content').value,
+      slugManuallyEdited
+    };
+    localStorage.setItem('admin_draft', JSON.stringify(draft));
+    setDraftStatus('Draft saved · ' + new Date().toLocaleTimeString());
+  }
+
+  function loadDraft() {
+    const raw = localStorage.getItem('admin_draft');
+    if (!raw) { setDraftStatus('No saved draft.'); return; }
+    const draft = JSON.parse(raw);
+    document.getElementById('title').value = draft.title || '';
+    document.getElementById('date').value = draft.date || '';
+    document.getElementById('excerpt').value = draft.excerpt || '';
+    document.getElementById('slug').value = draft.slug || '';
+    document.getElementById('content').value = draft.content || '';
+    slugManuallyEdited = draft.slugManuallyEdited || false;
+    updateSlugPreview(draft.slug);
+    updateWordCount();
+    setDraftStatus('Draft loaded.');
+  }
+
+  function clearDraft() {
+    if (!confirm('Clear saved draft?')) return;
+    localStorage.removeItem('admin_draft');
+    setDraftStatus('Draft cleared.');
+  }
+
+  function setDraftStatus(msg) {
+    const el = document.getElementById('draft-status');
+    el.textContent = msg;
+    setTimeout(() => { el.textContent = ''; }, 3000);
+  }
+
+  function clearForm() {
+    if (!confirm('Clear all fields?')) return;
+    ['title','date','excerpt','slug','content'].forEach(id => { document.getElementById(id).value = ''; });
+    slugManuallyEdited = false;
+    updateSlugPreview('');
+    updateWordCount();
+    setStatus('');
+    document.getElementById('admin').querySelector('.admin-nav-title').innerHTML = 'Admin <span>·</span> New Post';
+  }
+
+  // ─── GITHUB PAT ──────────────────────────────────────────────
+  function savePAT() {
+    const pat = document.getElementById('gh-pat').value.trim();
+    const repo = document.getElementById('gh-repo').value.trim();
+    if (pat) localStorage.setItem('gh_pat', pat);
+    if (repo) localStorage.setItem('gh_repo', repo);
+    setStatus('Token saved to this device.', 'success');
+    setTimeout(() => setStatus(''), 3000);
+  }
+
+  // ─── PUBLISH ─────────────────────────────────────────────────
+  async function publish() {
+    const btn = document.getElementById('publish-btn');
+
+    const post = {
+      slug:    document.getElementById('slug').value.trim(),
+      title:   document.getElementById('title').value.trim(),
+      date:    document.getElementById('date').value.trim(),
+      excerpt: document.getElementById('excerpt').value.trim(),
+      content: document.getElementById('content').value
+    };
+
+    // Validate
+    if (!post.title) { setStatus('Title is required.', 'error'); return; }
+    if (!post.slug)  { setStatus('Slug is required.', 'error'); return; }
+    if (!post.date)  { setStatus('Date is required.', 'error'); return; }
+    if (!post.excerpt) { setStatus('Excerpt is required.', 'error'); return; }
+    if (!post.content.trim()) { setStatus('Content cannot be empty.', 'error'); return; }
+
+    const token = localStorage.getItem('gh_pat') || document.getElementById('gh-pat').value.trim();
+    const repo  = document.getElementById('gh-repo').value.trim() || 'parthhgohil/parthhgohil.github.io';
+
+    if (!token) { setStatus('GitHub token is missing. Open GitHub Settings in the sidebar.', 'error'); return; }
+
+    btn.disabled = true;
+    setStatus('Publishing…', '');
+
+    try {
+      // 1. Fetch current posts.json (need SHA for the PUT)
+      const getRes = await fetch(`https://api.github.com/repos/${repo}/contents/posts.json`, {
+        headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github.v3+json' }
+      });
+
+      if (!getRes.ok) {
+        const err = await getRes.json().catch(() => ({}));
+        throw new Error(err.message || `GitHub API error ${getRes.status}`);
+      }
+
+      const fileData = await getRes.json();
+      const posts = JSON.parse(atob(fileData.content.replace(/\n/g, '')));
+
+      // 2. Add or update post
+      const idx = posts.findIndex(p => p.slug === post.slug);
+      if (idx >= 0) {
+        posts[idx] = post;
+      } else {
+        posts.unshift(post); // newest first
+      }
+
+      // 3. Write back via PUT
+      const newContent = btoa(unescape(encodeURIComponent(JSON.stringify(posts, null, 2))));
+
+      const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/posts.json`, {
+        method: 'PUT',
+        headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: (idx >= 0 ? 'blog: update "' : 'blog: add "') + post.title + '"',
+          content: newContent,
+          sha: fileData.sha
+        })
+      });
+
+      if (!putRes.ok) {
+        const err = await putRes.json().catch(() => ({}));
+        throw new Error(err.message || `GitHub API error ${putRes.status}`);
+      }
+
+      const verb = idx >= 0 ? 'Updated' : 'Published';
+      setStatus(`${verb} — live in ~30 seconds.`, 'success');
+      document.getElementById('admin').querySelector('.admin-nav-title').innerHTML =
+        `Admin <span>·</span> ${escHtml(post.title)}`;
+
+      // Refresh posts list
+      loadPostsList();
+
+    } catch (err) {
+      setStatus('Error: ' + err.message, 'error');
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  function setStatus(msg, type) {
+    const el = document.getElementById('publish-status');
+    el.textContent = msg;
+    el.className = '';
+    if (!msg) { el.style.display = 'none'; return; }
+    el.style.display = 'block';
+    if (type) el.classList.add(type);
+  }
+
+  // ─── POSTS LIST ──────────────────────────────────────────────
+  async function loadPostsList() {
+    const container = document.getElementById('posts-list');
+    const repo = document.getElementById('gh-repo').value.trim() || 'parthhgohil/parthhgohil.github.io';
+    const token = localStorage.getItem('gh_pat') || document.getElementById('gh-pat').value.trim();
+
+    let posts;
+    try {
+      const headers = { Accept: 'application/vnd.github.v3+json' };
+      if (token) headers.Authorization = `Bearer ${token}`;
+
+      // Fetch directly from GitHub raw to avoid cache
+      const res = await fetch(`https://api.github.com/repos/${repo}/contents/posts.json`, { headers });
+      if (!res.ok) throw new Error();
+      const file = await res.json();
+      posts = JSON.parse(atob(file.content.replace(/\n/g, '')));
+    } catch {
+      container.innerHTML = '<div class="posts-list-empty">Could not load posts.</div>';
+      return;
+    }
+
+    if (!posts.length) {
+      container.innerHTML = '<div class="posts-list-empty">No posts yet.</div>';
+      return;
+    }
+
+    container.innerHTML = posts.map(p => `
+      <div class="post-list-item" onclick="loadPostForEdit(${escAttr(JSON.stringify(p))})">
+        <div class="post-list-item-title">${escHtml(p.title)}</div>
+        <div class="post-list-item-meta">${escHtml(p.date)} · ${escHtml(p.slug)}</div>
+      </div>
+    `).join('');
+  }
+
+  function loadPostForEdit(post) {
+    document.getElementById('title').value = post.title || '';
+    document.getElementById('date').value = post.date || '';
+    document.getElementById('excerpt').value = post.excerpt || '';
+    document.getElementById('slug').value = post.slug || '';
+    document.getElementById('content').value = post.content || '';
+    slugManuallyEdited = true;
+    updateSlugPreview(post.slug);
+    updateWordCount();
+    setStatus('');
+    document.getElementById('admin').querySelector('.admin-nav-title').innerHTML =
+      `Admin <span>·</span> ${escHtml(post.title)}`;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ─── SIDEBAR TOGGLE ──────────────────────────────────────────
+  function toggleCard(header) {
+    const body = header.nextElementSibling;
+    const isHidden = body.classList.contains('hidden');
+    body.classList.toggle('hidden', !isHidden);
+    header.classList.toggle('collapsed', !isHidden);
+  }
+
+  // ─── UTILS ───────────────────────────────────────────────────
+  function escHtml(str) {
+    if (typeof str !== 'string') return '';
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function escAttr(str) {
+    return escHtml(str).replace(/'/g,'&#39;');
+  }
+</script>
+</body>
+</html>

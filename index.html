@@ -906,7 +906,7 @@
         <div class="work-card-desc">
           KWIK is my north star: a company built to accelerate manufacturing in India. The first vertical — <strong style="color:var(--amber)">kwikCNC</strong> — is in the CNC machining space, solving real problems in precision manufacturing. This is not a side hustle. This is the legacy project.
         </div>
-        <div class="work-card-icon">⚙️</div>
+        <div class="work-card-icon"></div>
       </div>
     </div>
 
@@ -920,7 +920,7 @@
           <div class="work-card-desc">
             Served on multiple warships as a technical officer — covering everything from ship operations and strategy to planning, contracting, and new ship inductions. The Navy didn't just shape my career; it shaped how I think, lead, and solve problems under pressure. It's the reason KWIK exists.
           </div>
-          <div class="work-card-icon">⚓</div>
+          <div class="work-card-icon"></div>
         </div>
         <div class="work-card reveal">
           <div class="work-card-tag">Management · IIM Ahmedabad · 2025</div>
@@ -928,7 +928,7 @@
           <div class="work-card-desc">
             After a decade in uniform, I chose the harder second option: build something. The PGPX at IIM-A was the inflection point — not just the credential, but the space to think clearly about what I wanted to leave behind and what kind of builder I wanted to become.
           </div>
-          <div class="work-card-icon">🎓</div>
+          <div class="work-card-icon"></div>
         </div>
       </div>
     </div>
@@ -940,21 +940,8 @@
   <div class="container">
     <p class="section-eyebrow reveal">Writing</p>
     <h2 class="section-title reveal">Recent <em>articles</em></h2>
-    <div class="articles-grid">
-      
-      <!-- ARTICLE 1 — Example (Delete this and add your own) -->
-      <a href="blog/why-i-left-the-navy.html" class="article-card reveal">
-        <div class="article-date">April 2026</div>
-        <div class="article-title">Why I Left the Navy to Build KWIK</div>
-        <p class="article-excerpt">
-          After ten years in uniform, I had to make a choice: take the safe path or build something with my name on it. Here's why I chose the second.
-        </p>
-        <span class="article-read-more">Read article</span>
-      </a>
-
-      <!-- ADD NEW ARTICLES HERE -->
-      <!-- Just copy-paste the block above, change the href, date, title, and excerpt -->
-
+    <div class="articles-grid" id="articles-grid">
+      <!-- Posts loaded dynamically from posts.json -->
     </div>
   </div>
 </section>
@@ -1066,6 +1053,31 @@
     });
   }, { threshold: 0.12 });
   reveals.forEach(r => observer.observe(r));
+
+  // Load articles from posts.json
+  (async () => {
+    const grid = document.getElementById('articles-grid');
+    try {
+      const res = await fetch('/posts.json');
+      if (!res.ok) throw new Error();
+      const posts = await res.json();
+      if (!posts.length) return;
+      grid.innerHTML = posts.map(p => `
+        <a href="blog/post.html?slug=${encodeURIComponent(p.slug)}" class="article-card reveal">
+          <div class="article-date">${escHtml(p.date)}</div>
+          <div class="article-title">${escHtml(p.title)}</div>
+          <p class="article-excerpt">${escHtml(p.excerpt)}</p>
+          <span class="article-read-more">Read article</span>
+        </a>
+      `).join('');
+      // Observe newly added cards for scroll reveal
+      grid.querySelectorAll('.reveal').forEach(r => observer.observe(r));
+    } catch { /* silently skip if posts.json unavailable */ }
+  })();
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
 
   // Contact form
   function handleSubmit() {
