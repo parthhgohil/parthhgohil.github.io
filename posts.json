@@ -1,12 +1,5 @@
 [
   {
-    "slug": "test-blog",
-    "title": "Test blog",
-    "date": "April 2026",
-    "excerpt": "testing the github api",
-    "content": "its working posting blog without adding server."
-  },
-  {
     "slug": "why-i-left-the-navy",
     "title": "Why I Left the Navy to Build KWIK",
     "date": "April 2026",
